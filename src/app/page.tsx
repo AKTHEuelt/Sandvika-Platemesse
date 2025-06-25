@@ -1,4 +1,4 @@
-// src/app/page.js
+// src/app/page.tsx
 "use client";
 
 import styled, { keyframes, css } from "styled-components";
@@ -98,9 +98,15 @@ const SubTitle = styled.h2`
   }
 `;
 
+// FIX 1: Defined props interface for VinylImage to include 'isSpinning'.
+// The 'isSpinning' prop is now correctly filtered and won't be passed to the underlying <img> element.
+interface VinylImageProps {
+  isSpinning: boolean;
+}
+
 const VinylImage = styled(Image).withConfig({
   shouldForwardProp: (prop) => prop !== "isSpinning",
-})<{ isSpinning: boolean }>`
+})<VinylImageProps>`
   width: 350px;
   height: 350px;
   cursor: pointer;
@@ -132,13 +138,7 @@ const ContentContainer = styled.div`
   gap: 0.5rem;
 `;
 
-interface ContentWordProps {
-  style?: {
-    fontSize: string;
-  };
-}
-
-const ContentWord = styled.span<ContentWordProps>`
+const ContentWord = styled.span`
   color: #000000;
   line-height: 1.4;
   display: inline-block;
@@ -194,9 +194,10 @@ const KeywordsContainer = styled.div`
   gap: 0.5rem;
 `;
 
+// FIX 2: Defined a proper interface for KeywordProps to avoid ambiguity.
 interface KeywordProps {
-  style: {
-    fontSize: string;
+  style?: {
+    fontSize?: string;
   };
 }
 
@@ -205,16 +206,19 @@ const Keyword = styled.span<KeywordProps>`
   line-height: 1.4;
   display: inline-block;
   transition: color 0.3s ease;
+  font-size: ${({ style }) => style?.fontSize ?? '1rem'}; // Provide a default value
 
   &:hover {
     color: #ffd781;
   }
 
+  // FIX 3: Used optional chaining (?.) and the nullish coalescing operator (??)
+  // to safely access style.fontSize and provide a default if it's missing.
   @media (max-width: 768px) {
-    font-size: ${({ style }) => `calc(${style.fontSize} * 0.8)`};
+    font-size: ${({ style }) => `calc(${style?.fontSize ?? '1rem'} * 0.8)`};
   }
   @media (max-width: 480px) {
-    font-size: ${({ style }) => `calc(${style.fontSize} * 0.6)`};
+    font-size: ${({ style }) => `calc(${style?.fontSize ?? '1rem'} * 0.6)`};
   }
 `;
 
@@ -232,6 +236,25 @@ const Footer = styled.footer`
   }
 `;
 
+const VideoContainer = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%; /* 16:9 Aspect Ratio */
+  margin: 2rem 0;
+`;
+
+const ResponsiveIframe = styled.iframe`
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+`;
+
 interface WordItem {
   word: string;
   size: string;
@@ -240,7 +263,6 @@ interface WordItem {
 export default function Home() {
   const [isSpinning, setIsSpinning] = useState(false);
 
-  // Updated festival-related words
   const festivalWords: WordItem[] = [
     { word: "sandvika", size: "2.5rem" },
     { word: "platemesse", size: "2.0rem" },
@@ -252,8 +274,6 @@ export default function Home() {
     { word: "hyggelig stemning", size: "2.0rem" },
     { word: "kule artister", size: "2.4rem" },
     { word: "bra servering", size: "1.9rem" },
-    //{ word: "fresh tea", size: "1.7rem" },
-    //{ word: "liora", size: "2.1rem" },
     { word: "afterparty", size: "1.8rem" },
     { word: "folkebadet", size: "1.6rem" },
     { word: "spinning av skiver", size: "2.2rem" },
@@ -283,7 +303,6 @@ export default function Home() {
     { word: "glede", size: "1.9rem" },
   ].sort((a, b) => a.word.localeCompare(b.word, "no"));
 
-  // Updated Home section words
   const homeWords: WordItem[] = [
     { word: "sandvika platemesse", size: "2.5rem" },
     { word: "31. August", size: "2.0rem" },
@@ -293,34 +312,27 @@ export default function Home() {
     { word: "kadettangen 18", size: "2.3rem" },
   ];
 
-  // Updated About section words
   const aboutWords: WordItem[] = [
     { word: "sandvika platemesse", size: "2.5rem" },
     { word: "topp stemning", size: "2.0rem" },
     { word: "hyggelige folk", size: "1.9rem" },
     { word: "kule artister", size: "2.3rem" },
     { word: "bra servering", size: "1.8rem" },
-    //{ word: "fresh tea stand", size: "1.7rem" },
     { word: "musikk og kultur", size: "2.2rem" },
     { word: "vinylplater", size: "2.0rem" },
     { word: "lokal opplevelse", size: "1.9rem" },
   ];
 
-  // Updated Events section words
   const eventsWords: WordItem[] = [
     { word: "31. August", size: "2.5rem" },
     { word: "kl. 11-16.00", size: "1.8rem" },
     { word: "høl i cv'en", size: "2.2rem" },
     { word: "k18", size: "1.6rem" },
-    //{ word: "liora på scenen", size: "2.3rem" },
     { word: "flere kule artister", size: "2.0rem" },
-    //{ word: "fresh tea stand", size: "1.9rem" },
-    //{ word: "afterparty lørdag", size: "2.1rem" },
     { word: "spinning av skiver", size: "1.8rem" },
     { word: "DJ-Jon Snurrer Skiver", size: "1.7rem" },
   ];
 
-  // Updated Contact section words
   const contactWords: WordItem[] = [
     { word: "meld deg på", size: "2.5rem" },
     { word: "91755657", size: "2.0rem" },
@@ -383,6 +395,20 @@ export default function Home() {
                 <ContentWord key={index}>{word.word}</ContentWord>
               ))}
             </ContentContainer>
+          </Section>
+
+          {/* YouTube Video Section */}
+          <Section id="video">
+            <SubTitle>Stemningsvideo</SubTitle>
+            <VideoContainer>
+              <ResponsiveIframe
+                // FIX 4: Replaced the broken link with a working placeholder video.
+                src="https://www.youtube.com/embed/b1L4YgD7MgQ?si=ulVlmFkK-aGHz0__"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></ResponsiveIframe>
+            </VideoContainer>
           </Section>
 
           {/* Festival Words Section */}
