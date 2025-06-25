@@ -32,7 +32,7 @@ const NavLinks = styled.div`
 
 // Nav link styling with modern hover effects
 const NavLink = styled.a`
-  color: #A2D5AB; /* Light yellow text */
+  color: #ffd781; /* Light yellow text */
   background-color: #000000; /* Black background */
   text-decoration: none; /* No underline */
   font-family: "Montserrat", Arial, sans-serif; /* Modern font with fallback */
@@ -50,8 +50,8 @@ const NavLink = styled.a`
   &:active {
     text-decoration: none; /* Ensure no underline on hover, visited, or active */
     background: linear-gradient(90deg, #333 0%, #444 100%); /* Gradient hover effect */
-    color: #A2D5AB; /* Keep light yellow on hover */
-    border: 1px solid #A2D5AB; /* Subtle border on hover */
+    color: #ffd781; /* Keep light yellow on hover */
+    border: 1px solid #ffd781; /* Subtle border on hover */
     transform: translateY(-2px); /* Slight lift on hover */
   }
 `;
@@ -101,7 +101,7 @@ const Menu = styled.div<{ $isMenuOpen: boolean }>`
   left: 0;
   height: 100%;
   width: 100%;
-  background: #A2D5AB; /* Dark background for contrast */
+  background: #ffd781; /* Dark background for contrast */
   backdrop-filter: blur(12px); /* Modern blur effect */
   z-index: 1100;
   animation: fadeIn 0.3s ease-in-out;
@@ -147,10 +147,10 @@ const MenuItem = styled.div<{ $isActive: boolean }>`
   &:visited,
   &:active {
     text-decoration: none;
-    color: #A2D5AB;
+    color: #ffd781;
     transform: scale(1.1);
     background: linear-gradient(90deg, #333 0%, #444 100%); /* Gradient hover effect */
-    border: 1px solid #A2D5AB; /* Subtle border on hover */
+    border: 1px solid #ffd781; /* Subtle border on hover */
   }
 
   @media (max-width: 768px) {
@@ -165,7 +165,7 @@ const MenuItem = styled.div<{ $isActive: boolean }>`
 
 // Logo styling
 const Logo = styled.h1`
-  color: #A2D5AB; /* Light yellow text */
+  color: #ffd781; /* Light yellow text */
   background-color: #000000; /* Black background */
   padding: 0.5rem 1rem;
   margin: 0;
@@ -178,7 +178,7 @@ const Logo = styled.h1`
 
   &:hover {
     background: linear-gradient(90deg, #333 0%, #444 100%); /* Gradient hover effect */
-    color: #A2D5AB;
+    color: #ffd781;
     transform: translateY(-2px); /* Slight lift on hover */
   }
 
