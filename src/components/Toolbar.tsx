@@ -11,7 +11,7 @@ const ToolbarWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 2rem;
-  background: linear-gradient(90deg, #A2D5AB 0%, #A2D5AB 100%); /* Subtle gradient with light yellow tones */
+  background: #ffd781;
   position: sticky;
   top: 0;
   left: 0;
