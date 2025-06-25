@@ -323,7 +323,7 @@ export default function Home() {
   // Updated Contact section words
   const contactWords: WordItem[] = [
     { word: "meld deg på", size: "2.5rem" },
-    { word: "91773008", size: "2.0rem" },
+    { word: "91755657", size: "2.0rem" },
     { word: "gratis bord", size: "1.8rem" },
     { word: "høl i cv'en", size: "2.2rem" },
     { word: "sandvika platemesse", size: "2.3rem" },
