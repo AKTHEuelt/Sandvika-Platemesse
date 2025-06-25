@@ -9,30 +9,28 @@ interface RootLayoutProps {
   children: ReactNode;
 }
 
-// Updated Metadata for SEO to reflect Høl i CV’en’s mission
+// Updated Metadata specifically for the Sandvika Platemesse event
 export const metadata = {
-  title: "Høl i CV´en - Kaffe, Fellesskap og Recovery",
+  title: "Sandvika Platemesse - 31. August 2025",
   description:
-    "Høl i CV’en i Sandvika, Bærum Kommune - arbeidstrening, kaffe av kvalitet, og fellesskap for recovery. Besøk vår kafe eller bli med på Sandvika Platemesse!",
+    "Velkommen til Sandvika Platemesse 31. august! En hel dag dedikert til vinyl, musikk og kultur på Kadettangen 18, arrangert av Høl i CV'en. Se kule artister, finn sjeldne plater, og nyt god stemning. Gratis bord for selgere!",
   keywords:
-    "Høl i CV’en, Sandvika, Bærum Kommune, arbeidstrening, recovery, mental helse, rusmestring, kaffe, matvogn, kafe, Sandvika Platemesse, fellesskap, inkludering, kaffekultur",
+    "Sandvika Platemesse, platemesse Bærum, vinylmesse, salg av vinyl, LP-plater, musikkarrangement, 31. august 2025, Kadettangen 18, Høl i CV'en, live musikk, DJ, platesamlere, retro, kultur Sandvika, hva skjer i Bærum",
 };
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    // Changed language to Norwegian for better accessibility and SEO
+    <html lang="no">
       <head>
+        {/* These two meta tags are standard and should remain */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="title" content="Høl i CV´en - Kaffe, Fellesskap og Recovery" />
-        <meta
-          name="description"
-          content="Høl i CV’en i Sandvika, Bærum Kommune - arbeidstrening, kaffe av kvalitet, og fellesskap for recovery. Besøk vår kafe eller bli med på Sandvika Platemesse!"
-        />
-        <meta
-          name="keywords"
-          content="Høl i CV’en, Sandvika, Bærum Kommune, arbeidstrening, recovery, mental helse, rusmestring, kaffe, matvogn, kafe, Sandvika Platemesse, fellesskap, inkludering, kaffekultur"
-        />
+
+        {/* The manual <meta name="title">, <meta name="description">, and <meta name="keywords">
+          have been removed because the `metadata` object above handles this automatically.
+          This prevents duplicate tags in your final HTML.
+        */}
 
         {/* Google Analytics Script with your specific tracking ID */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-3423EF1KKM"></script>
@@ -42,7 +40,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-3423EF1KKM'); // Fixed tracking ID to match the script src
+              gtag('config', 'G-3423EF1KKM');
             `,
           }}
         />
